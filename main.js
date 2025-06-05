@@ -113,7 +113,22 @@ const validateForm = async () => {
     errors.push('El nombre debe tener entre 2 y 50 caracteres');
   }
 
-  // ... (agrega aquí el resto de tus validaciones)
+  const precio = document.getElementById('price')?.value.trim();
+  if (!precio) {
+    errors.push('El precio es obligatorio');
+  } else if (isNaN(parseFloat(precio)) || parseFloat(precio) <= 0) {
+    errors.push('El precio debe ser un número mayor a cero');
+  }
+
+  const bodega = document.getElementById('comboBoxStore')?.value;
+  if (!bodega) {
+    errors.push('Debe seleccionar una bodega');
+  }
+
+  const moneda = document.getElementById('comboBoxCurrency')?.value;
+  if (!moneda) {
+    errors.push('Debe seleccionar una moneda');
+  }
 
   return errors;
 };
@@ -162,16 +177,8 @@ document.getElementById('productForm')?.addEventListener('submit', async (e) => 
   }
 });
 
-// 6. INICIALIZACIÓN
+// 6. INICIALIZACIÓN (sin validación en tiempo real)
 document.addEventListener('DOMContentLoaded', () => {
   loadCombos();
   
-  // Validación en tiempo real (opcional)
-  document.getElementById('code')?.addEventListener('blur', async function() {
-    const errors = validateProductCode(this.value);
-    if (errors.length > 0) {
-      alert(errors.join('\n'));
-      this.focus();
-    }
-  });
 });
