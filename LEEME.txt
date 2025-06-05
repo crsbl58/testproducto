@@ -1,0 +1,11 @@
+
+
+-Importa BD en pgAdmin versión 17.5
+
+-Inicia Apache desde el panel de control de XAMPP
+
+-montar proyecto en C:\xampp\htdocs
+
+-Habilitar PostgreSQL en PHP
+
+-ir a: http://localhost/testproducto
