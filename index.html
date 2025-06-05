@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./styles.css" />
+  <title>Document</title>
+</head>
+
+<body>
+  <main>
+    <form id="productForm">
+      <h1>Formulario de Producto</h1>
+      <div>
+        <div class="inputGroup">
+          <label for="code">Código</label>
+          <input name="code" type="text" id="code" />
+        </div>
+
+        <div class="inputGroup">
+          <label for="nombre">Nombre</label>
+          <input name="name" type="text" id="nombre" />
+        </div>
+
+        <div class="selectGroup">
+          <label>Bodega</label>
+          <select id="comboBoxStore" required></select>
+        </div>
+
+        <div class="selectGroup">
+          <label>Sucursal</label>
+          <select id="comboBoxBranch" required></select>
+        </div>
+
+        <div class="selectGroup">
+          <label>Moneda</label>
+          <select id="comboBoxCurrency" required></select>
+        </div>
+
+        <div class="inputGroup">
+          <label>Precio</label>
+          <input type="number" id="price" step="0.01" required />
+        </div>
+
+
+
+      </div>
+
+      <div class="containerInteres">
+            <label>Material del producto</label>
+        <ul id="interesesList"></ul>
+      </div>
+
+      <div class="inputGroupMultiText">
+        <label>Descripción</label>
+        <textarea id="description" step="0.01" required></textarea>
+      </div>
+
+      <button type="submit">Guardar Producto</button>
+    </form>
+  </main>
+
+  <script type="module" src="./main.js"></script>
+</body>
+
+</html>
