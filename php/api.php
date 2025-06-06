@@ -90,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         $pdo->beginTransaction();
 
-        // Insertar producto con estado = 0
+  
         $stmt = $pdo->prepare('
             INSERT INTO "Producto" (codigo, nombre, descripcion, bodega_id, sucursal_id, moneda_id, precio, estado)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?)
@@ -103,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data['sucursal_id'],
             $data['moneda_id'],
             $data['precio'],
-            0 // <--- aquí se inserta el estado = 0
+            0 
         ]);
 
         // Insertar intereses seleccionados (si existen)

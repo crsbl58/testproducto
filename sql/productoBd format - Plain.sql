@@ -5,7 +5,7 @@
 -- Dumped from database version 17.5
 -- Dumped by pg_dump version 17.5
 
--- Started on 2025-06-05 13:52:51
+-- Started on 2025-06-06 12:21:53
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -153,7 +153,9 @@ ALTER TABLE ONLY public.registro_intereses ALTER COLUMN id SET DEFAULT nextval('
 --
 
 COPY public."Bodega" (id, estado, nombre) FROM stdin;
-0              	0	central                                           
+1              	0	bodega A                                          
+0              	0	bodega C                                          
+2              	0	bodega B                                          
 \.
 
 
@@ -165,6 +167,8 @@ COPY public."Bodega" (id, estado, nombre) FROM stdin;
 
 COPY public."Moneda" (id, nombre, estado) FROM stdin;
 0              	Dolar                                             	0
+1              	CLP                                               	0
+4              	Euro                                              	0
 \.
 
 
@@ -190,6 +194,20 @@ asdasdbbbbx    	asdasd                                            	0            
 asdasdbbbbxwww 	asdasd                                            	0              	0              	0              	123123	\N	\N
 asdasdbbbbx2   	asdasd                                            	0              	0              	0              	123123	\N	654546456546546                                                                                     
 asdasdbbbbff   	asdasd                                            	0              	0              	0              	123123	0	asdasdasdasd                                                                                        
+dsassad2       	saddasd                                           	0              	0              	0              	213123	0	asdasd213123asdasda                                                                                 
+123123s        	asdasdas                                          	0              	0              	0              	123213	0	sadasdasd213123sadasd                                                                               
+5545656a       	saddasd                                           	0              	0              	0              	213123	0	546465454                                                                                           
+pl527          	alcachofa                                         	0              	0              	0              	23.84	0	brote 85                                                                                            
+fm498          	sardina                                           	1              	8              	4              	53.58	0	lote 25                                                                                             
+asassa2        	saasas                                            	0              	1              	0              	21212	0	assasasasa                                                                                          
+asdsadsad3     	asdadssda                                         	0              	1              	0              	12312	0	asdsadasd                                                                                           
+asdasd2        	asdasd                                            	0              	0              	0              	213123	0	asdasdasdasd                                                                                        
+asdasd2d       	asdasd                                            	0              	1              	0              	213123	0	asdasdasdas                                                                                         
+asdasdasd2     	sadasd                                            	1              	6              	1              	213123123	0	s                                                                                                   
+asdasdsda2     	sadasd                                            	0              	1              	1              	-111	0	asdsadsadads                                                                                        
+asdasd3        	asdasd                                            	1              	8              	0              	213213	0	asdasdasdasd                                                                                        
+pl245          	jureles                                           	0              	1              	0              	23.58	0	lote 25 caja 4                                                                                      
+fm277          	jurel tipo salmon                                 	1              	6              	4              	23.24	0	lote 524 caja 9                                                                                     
 \.
 
 
@@ -201,6 +219,14 @@ asdasdbbbbff   	asdasd                                            	0            
 
 COPY public."Sucursal" (id, nombre, estado, bodega_id) FROM stdin;
 0              	Central                                           	0	0              
+1              	Sucursal z                                        	0	0              
+2              	Sucursal u                                        	0	0              
+4              	Sucursal e                                        	0	2              
+3              	Sucursal i                                        	0	2              
+5              	Sucursal c                                        	0	2              
+6              	Sucursal k                                        	0	1              
+7              	Sucursal l                                        	0	1              
+8              	Sucursal v                                        	0	1              
 \.
 
 
@@ -260,6 +286,24 @@ COPY public.registro_intereses (intereses_id, producto_id, id) FROM stdin;
 2              	asdasdbbbbx2   	32
 0              	asdasdbbbbff   	33
 2              	asdasdbbbbff   	34
+0              	dsassad2       	35
+1              	dsassad2       	36
+2              	123123s        	37
+3              	123123s        	38
+0              	pl527          	39
+1              	fm498          	40
+0              	asdasd2d       	41
+1              	asdasd2d       	42
+0              	asdasdasd2     	43
+1              	asdasdasd2     	44
+0              	asdasdsda2     	45
+1              	asdasdsda2     	46
+0              	asdasd3        	47
+1              	asdasd3        	48
+0              	pl245          	49
+1              	pl245          	50
+0              	fm277          	51
+1              	fm277          	52
 \.
 
 
@@ -269,7 +313,7 @@ COPY public.registro_intereses (intereses_id, producto_id, id) FROM stdin;
 -- Name: registro_intereses_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.registro_intereses_id_seq', 34, true);
+SELECT pg_catalog.setval('public.registro_intereses_id_seq', 52, true);
 
 
 --
@@ -326,7 +370,7 @@ ALTER TABLE ONLY public."Sucursal"
     ADD CONSTRAINT sucursal_pkey PRIMARY KEY (id);
 
 
--- Completed on 2025-06-05 13:52:51
+-- Completed on 2025-06-06 12:21:53
 
 --
 -- PostgreSQL database dump complete

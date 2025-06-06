@@ -2,33 +2,27 @@ import SelectOptions from './selectOptions.js';
 
 const API_URL = './php/api.php';
 
-// 1. FUNCIÓN DE VALIDACIÓN DEL CÓDIGO (ESTRICTA)
 const validateProductCode = (code) => {
   const errors = [];
   const trimmedCode = (code || '').trim();
 
-  // Validación 1: Campo requerido
   if (!trimmedCode) {
     errors.push('El código del producto es obligatorio');
     return errors;
   }
 
-  // Validación 2: Longitud exacta
   if (trimmedCode.length < 5 || trimmedCode.length > 15) {
     errors.push('El código debe tener entre 5 y 15 caracteres');
   }
 
-  // Validación 3: Solo caracteres alfanuméricos
   if (!/^[A-Za-z0-9]+$/.test(trimmedCode)) {
     errors.push('El código solo puede contener letras y números');
   }
 
-  // Validación 4: Al menos una letra
   if (!/[A-Za-z]/.test(trimmedCode)) {
     errors.push('El código debe contener al menos una letra');
   }
 
-  // Validación 5: Al menos un número
   if (!/[0-9]/.test(trimmedCode)) {
     errors.push('El código debe contener al menos un número');
   }
@@ -36,7 +30,6 @@ const validateProductCode = (code) => {
   return errors;
 };
 
-// 2. FUNCIÓN PARA CARGAR COMBOS
 const loadCombos = async () => {
   try {
     const response = await fetch(`${API_URL}?action=loadOptions`);
@@ -61,7 +54,6 @@ const loadCombos = async () => {
   }
 };
 
-// 3. EVENTO CHANGE PARA BODEGAS
 document.getElementById('comboBoxStore')?.addEventListener('change', async (e) => {
   const bodegaId = e.target.value;
   const branchCombo = document.getElementById('comboBoxBranch');
@@ -81,12 +73,10 @@ document.getElementById('comboBoxStore')?.addEventListener('change', async (e) =
   }
 });
 
-// 4. FUNCIÓN PRINCIPAL DE VALIDACIÓN
 const validateForm = async () => {
   const errors = [];
   const codeInput = document.getElementById('code');
 
-  // Validación del código del producto
   if (codeInput) {
     const codeErrors = validateProductCode(codeInput.value);
     if (codeErrors.length > 0) {
@@ -105,7 +95,6 @@ const validateForm = async () => {
     }
   }
 
-  // Resto de validaciones (nombre, precio, etc.)
   const nombre = document.getElementById('nombre')?.value.trim();
   if (!nombre) {
     errors.push('El nombre es obligatorio');
@@ -113,27 +102,24 @@ const validateForm = async () => {
     errors.push('El nombre debe tener entre 2 y 50 caracteres');
   }
 
+  const checkedIntereses = document.querySelectorAll('input[name="intereses"]:checked');
+  if (checkedIntereses.length < 2) {
+    errors.push('Debe seleccionar al menos 2 intereses');
+  }
+
+  const descripcion = document.getElementById('description')?.value.trim();
+  if (descripcion && (descripcion.length < 10 || descripcion.length > 1000)) {
+    errors.push('La descripción debe tener entre 10 y 1000 caracteres');
+  }
+
   const precio = document.getElementById('price')?.value.trim();
-  if (!precio) {
-    errors.push('El precio es obligatorio');
-  } else if (isNaN(parseFloat(precio)) || parseFloat(precio) <= 0) {
-    errors.push('El precio debe ser un número mayor a cero');
-  }
-
-  const bodega = document.getElementById('comboBoxStore')?.value;
-  if (!bodega) {
-    errors.push('Debe seleccionar una bodega');
-  }
-
-  const moneda = document.getElementById('comboBoxCurrency')?.value;
-  if (!moneda) {
-    errors.push('Debe seleccionar una moneda');
+  if (!/^\d+(\.\d{1,2})?$/.test(precio) || parseFloat(precio) <= 0) {
+    errors.push('El precio debe ser un número positivo con hasta dos decimales');
   }
 
   return errors;
 };
 
-// 5. EVENTO SUBMIT DEL FORMULARIO (BLOQUEANTE)
 document.getElementById('productForm')?.addEventListener('submit', async (e) => {
   e.preventDefault();
   
@@ -143,7 +129,6 @@ document.getElementById('productForm')?.addEventListener('submit', async (e) => 
     return;
   }
 
-  // Construcción del payload
   const payload = {
     code: document.getElementById('code')?.value.trim(),
     nombre: document.getElementById('nombre')?.value.trim(),
@@ -155,7 +140,6 @@ document.getElementById('productForm')?.addEventListener('submit', async (e) => 
     intereses: Array.from(document.querySelectorAll('input[name="intereses"]:checked')).map(el => el.value)
   };
 
-  // Envío al servidor
   try {
     const response = await fetch(API_URL, {
       method: 'POST',
@@ -177,8 +161,6 @@ document.getElementById('productForm')?.addEventListener('submit', async (e) => 
   }
 });
 
-// 6. INICIALIZACIÓN (sin validación en tiempo real)
 document.addEventListener('DOMContentLoaded', () => {
   loadCombos();
-  
 });
